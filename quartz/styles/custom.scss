@@ -45,6 +45,33 @@ article li {
   line-height: 1.75;
 }
 
+// ── 图谱连线可见性 ──────────────────────────────────────────────
+// graph 插件把静止状态的连线颜色写死为 getComputedStyle(documentElement)
+// 读到的 --lightgray。主题给的是 #f6f6f6，在纯白背景上对比度只有 1.08:1，
+// 等于没画线（悬停时才换成 --gray，6.69:1）。
+//
+// 但 --lightgray 同时被 13 处当背景用（搜索结果悬停、导航悬停、次级面板…），
+// 还派生出 --background-secondary / --interactive-hover 等变量，
+// 直接在 :root 调深会让整站界面发灰。
+//
+// 图谱只读 html 这一层，而背景用途全在后代元素上，所以：
+// html 上调深供图谱取用 → body 上立刻还原 → 后代继承原色，界面不受影响。
+html {
+  --lightgray: #b8b8b8;
+}
+body {
+  --lightgray: #f6f6f6;
+  // 这几个派生变量声明在 :root 上，会跟着 html 的值变深，需一并还原
+  --background-secondary: var(--lightgray);
+  --background-secondary-alt: var(--lightgray);
+  --background-modifier-border: var(--lightgray);
+  --nav-item-background-hover: var(--lightgray);
+  --tag-background-hover: var(--lightgray);
+  --interactive-hover: var(--lightgray);
+  --divider-color: var(--lightgray);
+  --border: var(--lightgray);
+}
+
 // 指向尚未创建的笔记的链接，弱化显示而不是伪装成正常链接
 a.internal.broken {
   color: var(--gray);
