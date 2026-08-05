@@ -6,7 +6,9 @@ configuration:
   enablePopovers: true
   analytics: null
   locale: zh-CN
-  baseUrl: example.github.io
+  # GitHub Pages 域名恒为小写；项目仓库必须带上 /仓库名 这一段，
+  # 否则自托管字体等资源的绝对地址会指错。
+  baseUrl: lafei5986.github.io/treadmill-wiki
   ignorePatterns:
     - private
     - templates
@@ -152,8 +154,11 @@ plugins:
     enabled: true
   - source: "@quartz-community/og-image"
     enabled: true
+  # 该插件会按 baseUrl 生成 CNAME 文件，而 GitHub Pages 把 CNAME 视为「自定义域名」。
+  # 用 lafei5986.github.io/treadmill-wiki 这种子路径托管时不能有它，否则部署会冲突。
+  # 将来真的绑自定义域名时再改回 true。
   - source: "@quartz-community/cname"
-    enabled: true
+    enabled: false
   - source: "@quartz-community/canvas-page"
     enabled: true
   - source: "@quartz-community/content-page"
