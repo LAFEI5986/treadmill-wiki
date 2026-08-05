@@ -10,7 +10,7 @@ param(
     [switch]$NoBuild
 )
 
-$ErrorActionPreference = "Stop"
+# git/robocopy 的进度信息走 stderr，PS 5.1 会误判为致命错误，故不用 Stop$([char]10)$ErrorActionPreference = "Continue"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $content = Join-Path $here "content"
 
