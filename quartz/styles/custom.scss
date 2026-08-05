@@ -1,3 +1,38 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+// 中文字体回退。
+// Quartz 默认的 Schibsted Grotesk / Source Sans Pro / IBM Plex Mono 都没有汉字字形，
+// 不补回退时中文会落到浏览器默认字体（Windows 上常是宋体），观感很差。
+// 拉丁字母仍用 Quartz 原字体，汉字交给系统自带的黑体。
+:root {
+  --cjk: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    "Source Han Sans SC", "WenQuanYi Micro Hei";
+
+  --titleFont: "Schibsted Grotesk", var(--cjk), system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --headerFont: "Schibsted Grotesk", var(--cjk), system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --bodyFont: "Source Sans Pro", var(--cjk), system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --codeFont: "IBM Plex Mono", var(--cjk), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+// 中文正文适当放宽行距，默认值针对拉丁文排版偏紧
+article p,
+article li {
+  line-height: 1.75;
+}
+
+// 指向尚未创建的笔记的链接，弱化显示而不是伪装成正常链接
+a.internal.broken {
+  color: var(--gray);
+  border-bottom: 1px dashed var(--gray);
+  background-color: transparent;
+
+  &::after {
+    content: "?";
+    font-size: 0.75em;
+    vertical-align: super;
+    margin-left: 0.1em;
+  }
+}
