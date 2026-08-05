@@ -50,6 +50,6 @@ evidence_level: medium
 
 ## 关联页面
 
-- [[../concepts/智能跑步机]]
-- [[../opportunities/机会表]]
-- [[../maps/玩家地图]]
+- [[../concepts/智能跑步机|智能跑步机]]
+- [[../opportunities/机会表|机会表]]
+- [[../maps/玩家地图|玩家地图]]

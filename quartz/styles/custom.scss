@@ -15,6 +15,28 @@
   --bodyFont: "Source Sans Pro", var(--cjk), system-ui, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
   --codeFont: "IBM Plex Mono", var(--cjk), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+
+  // quartz-fonts 插件把这几个变量定义成不带回退的裸字体名，一并补上
+  --h1-font: var(--headerFont);
+  --h2-font: var(--headerFont);
+  --h3-font: var(--headerFont);
+  --h4-font: var(--headerFont);
+  --h5-font: var(--headerFont);
+  --h6-font: var(--headerFont);
+  --font-text: var(--bodyFont);
+  --font-monospace: var(--codeFont);
+
+  // 主题正文实际走 --font-interface，其系统字体栈里没有显式的中文项。
+  // Windows / macOS 会自行回退，Linux 不一定，显式列出保证跨平台一致。
+  --font-interface: ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto,
+    "Inter", var(--cjk), "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+// quartz-fonts 还会输出一条未分层的 `h1,...,h6 { font-family: "Schibsted Grotesk" }`，
+// 字面量写死且没有中文回退，中文标题会掉到浏览器默认的宋体。
+// 同名选择器只能靠权重取胜：`body :is(...)` 是 (0,0,2)，压过它的 (0,0,1)。
+body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--headerFont);
 }
 
 // 中文正文适当放宽行距，默认值针对拉丁文排版偏紧
